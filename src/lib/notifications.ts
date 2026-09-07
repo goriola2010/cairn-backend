@@ -1,7 +1,7 @@
-import { Notification } from "../models/Notification";
-import { Budget } from "../models/Budget";
-import { Transaction } from "../models/Transaction";
-import { Goal } from "../models/Goal";
+import { Notification } from "../models/Notification.js";
+import { Budget } from "../models/Budget.js";
+import { Transaction } from "../models/Transaction.js";
+import { Goal } from "../models/Goal.js";
 
 const MILESTONES = [25, 50, 75, 100] as const;
 
