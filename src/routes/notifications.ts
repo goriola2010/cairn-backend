@@ -25,7 +25,7 @@ router.patch("/:id/read", requireAuth, async (req: AuthedRequest, res) => {
     return res.status(401).json({ message: "Not signed in." });
   }
   const notification = await Notification.findOneAndUpdate(
-    { _id: req.params.id, userId: req.userId },
+    { _id: req.params.id as any, userId: req.userId } as any,
     { read: true },
     { new: true }
   );
