@@ -5,6 +5,7 @@ import { Transaction } from "../models/Transaction.js";
 import { Budget } from "../models/Budget.js";
 import { Goal } from "../models/Goal.js";
 import { requireAuth, AuthedRequest } from "../middlewares/requireAuth.js";
+import { clearSessionCookie } from "../lib/cookies.js";
 
 const router: Router = Router();
 
@@ -51,7 +52,7 @@ router.delete("/me", requireAuth, async (req: AuthedRequest, res) => {
     User.findByIdAndDelete(req.userId)
   ]);
 
-  res.clearCookie("cairn_session");
+  clearSessionCookie(res);
   res.status(204).send();
 });
 

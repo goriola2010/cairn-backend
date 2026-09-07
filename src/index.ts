@@ -18,7 +18,7 @@ const PORT = process.env.PORT ?? 4000;
 
 const allowedOrigins = [
   "http://localhost:5173",
-  process.env.CLIENT_URL,
+  process.env.CLIENT_URL?.replace(/\/$/, ""),
 ].filter(Boolean) as string[];
 
 app.use(
@@ -47,12 +47,34 @@ app.get("/api/health", (_req, res) => {
   res.json({ ok: true });
 });
 
+app.get("/", (_req, res) => {
+  res.json({ name: "Cairn API", status: "ok", health: "/api/health" });
+});
+
+app.get("/favicon.ico", (_req, res) => {
+  res.status(204).end();
+});
+
+app.get("/.well-known/appspecific/com.chrome.devtools.json", (_req, res) => {
+  res.json({
+    workspace: {
+      root: process.cwd(),
+      uuid: "cairn-api"
+    }
+  });
+});
+
 app.use("/api/auth", authRouter);
 app.use("/api/transactions", transactionsRouter);
 app.use("/api/budgets", budgetsRouter);
 app.use("/api/goals", goalsRouter);
 app.use("/api/users", usersRouter);
 app.use("/api/notifications", notificationsRouter);
+
+app.use((req, res) => {
+  console.error(`Unknown route: ${req.method} ${req.originalUrl}`);
+  res.status(404).json({ message: "Route not found." });
+});
 
 app.use((err: any, _req: express.Request, res: express.Response, _next: express.NextFunction) => {
   console.error(err);

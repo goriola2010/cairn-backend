@@ -5,6 +5,7 @@ import { z } from "zod";
 import { User } from "../models/User.js";
 import { requireAuth, AuthedRequest } from "../middlewares/requireAuth.js";
 import { sendWelcomeNotification } from "../lib/notifications.js";
+import { setSessionCookie, clearSessionCookie } from "../lib/cookies.js";
 
 const router: ReturnType<typeof Router> = Router();
 
@@ -37,7 +38,7 @@ router.post("/signup", async (req, res) => {
   const user = await User.create({ name, email, passwordHash });
 
   const token = jwt.sign({ sub: user.id }, JWT_SECRET, { expiresIn: "7d" });
-  res.cookie("cairn_session", token, { httpOnly: true, sameSite: "lax" });
+  setSessionCookie(res, token);
   res.status(201).json({ user: { id: user.id, name: user.name, email: user.email } });
 
   sendWelcomeNotification(user.id).catch(() => {});
@@ -56,12 +57,12 @@ router.post("/signin", async (req, res) => {
   }
 
   const token = jwt.sign({ sub: user.id }, JWT_SECRET, { expiresIn: "7d" });
-  res.cookie("cairn_session", token, { httpOnly: true, sameSite: "lax" });
+  setSessionCookie(res, token);
   res.json({ user: { id: user.id, name: user.name, email: user.email } });
 });
 
 router.post("/signout", (_req, res) => {
-  res.clearCookie("cairn_session");
+  clearSessionCookie(res);
   res.status(204).send();
 });
 
