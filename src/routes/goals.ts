@@ -1,9 +1,9 @@
 import { Router } from "express";
 import { z } from "zod";
-import { Goal } from "../models/Goal";
-import { Transaction } from "../models/Transaction";
-import { requireAuth, AuthedRequest } from "../middlewares/requireAuth";
-import { checkGoalMilestone } from "../lib/notifications";
+import { Goal } from "../models/Goal.js";
+import { Transaction } from "../models/Transaction.js";
+import { requireAuth, AuthedRequest } from "../middlewares/requireAuth.js";
+import { checkGoalMilestone } from "../lib/notifications.js";
 
 const router: Router = Router();
 

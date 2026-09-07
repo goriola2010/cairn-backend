@@ -1,7 +1,7 @@
 import { Router } from "express";
 import { z } from "zod";
-import { Budget } from "../models/Budget";
-import { requireAuth, AuthedRequest } from "../middlewares/requireAuth";
+import { Budget } from "../models/Budget.js";
+import { requireAuth, AuthedRequest } from "../middlewares/requireAuth.js";
 
 const router: Router = Router();
 

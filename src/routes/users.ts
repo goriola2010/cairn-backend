@@ -1,10 +1,10 @@
 import { Router } from "express";
 import { z } from "zod";
-import { User } from "../models/User";
-import { Transaction } from "../models/Transaction";
-import { Budget } from "../models/Budget";
-import { Goal } from "../models/Goal";
-import { requireAuth, AuthedRequest } from "../middlewares/requireAuth";
+import { User } from "../models/User.js";
+import { Transaction } from "../models/Transaction.js";
+import { Budget } from "../models/Budget.js";
+import { Goal } from "../models/Goal.js";
+import { requireAuth, AuthedRequest } from "../middlewares/requireAuth.js";
 
 const router: Router = Router();
 

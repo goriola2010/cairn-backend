@@ -2,9 +2,9 @@ import { Router } from "express";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 import { z } from "zod";
-import { User } from "../models/User";
-import { requireAuth, AuthedRequest } from "../middlewares/requireAuth";
-import { sendWelcomeNotification } from "../lib/notifications";
+import { User } from "../models/User.js";
+import { requireAuth, AuthedRequest } from "../middlewares/requireAuth.js";
+import { sendWelcomeNotification } from "../lib/notifications.js";
 
 const router: ReturnType<typeof Router> = Router();
 

@@ -1,8 +1,8 @@
 import { Router } from "express";
 import { z } from "zod";
-import { Transaction } from "../models/Transaction";
-import { requireAuth, AuthedRequest } from "../middlewares/requireAuth";
-import { checkBudgetAlert } from "../lib/notifications";
+import { Transaction } from "../models/Transaction.js";
+import { requireAuth, AuthedRequest } from "../middlewares/requireAuth.js";
+import { checkBudgetAlert } from "../lib/notifications.js";
 
 const router: Router = Router();
 
