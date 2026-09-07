@@ -42,7 +42,7 @@ router.delete("/:id", requireAuth, async (req: AuthedRequest, res) => {
     return res.status(400).json({ message: "Invalid id." });
   }
 
-  const budget = await Budget.findOneAndDelete({ _id: id, userId: req.userId });
+  const budget = await Budget.findOneAndDelete({ _id: id as any, userId: req.userId } as any);
   if (!budget) {
     return res.status(404).json({ message: "Budget not found." });
   }
