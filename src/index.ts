@@ -73,7 +73,7 @@ app.use("/api/notifications", notificationsRouter);
 
 app.use((req, res) => {
   console.error(`Unknown route: ${req.method} ${req.originalUrl}`);
-  res.status(404).json({ message: "Route not found." });
+  res.status(404).json({ message: `Unknown route: ${req.method} ${req.originalUrl}` });
 });
 
 app.use((err: any, _req: express.Request, res: express.Response, _next: express.NextFunction) => {

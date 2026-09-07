@@ -5,7 +5,8 @@ const isProd = process.env.NODE_ENV === "production";
 const sessionCookieOptions = {
   httpOnly: true,
   sameSite: isProd ? "none" : "lax",
-  secure: isProd
+  secure: isProd,
+  partitioned: isProd
 } as const;
 
 export function setSessionCookie(res: Response, token: string) {

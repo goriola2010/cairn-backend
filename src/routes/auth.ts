@@ -39,7 +39,7 @@ router.post("/signup", async (req, res) => {
 
   const token = jwt.sign({ sub: user.id }, JWT_SECRET, { expiresIn: "7d" });
   setSessionCookie(res, token);
-  res.status(201).json({ user: { id: user.id, name: user.name, email: user.email } });
+  res.status(201).json({ token, user: { id: user.id, name: user.name, email: user.email } });
 
   sendWelcomeNotification(user.id).catch(() => {});
 });
@@ -58,7 +58,7 @@ router.post("/signin", async (req, res) => {
 
   const token = jwt.sign({ sub: user.id }, JWT_SECRET, { expiresIn: "7d" });
   setSessionCookie(res, token);
-  res.json({ user: { id: user.id, name: user.name, email: user.email } });
+  res.json({ token, user: { id: user.id, name: user.name, email: user.email } });
 });
 
 router.post("/signout", (_req, res) => {

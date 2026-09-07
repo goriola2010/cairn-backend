@@ -9,6 +9,17 @@ import { clearSessionCookie } from "../lib/cookies.js";
 
 const router: Router = Router();
 
+router.get("/", requireAuth, async (req: AuthedRequest, res) => {
+  if (!req.userId) {
+    return res.status(401).json({ message: "Not signed in." });
+  }
+  const user = await User.findById(req.userId);
+  if (!user) {
+    return res.status(401).json({ message: "Not signed in." });
+  }
+  res.json({ user: { id: user.id, name: user.name, email: user.email } });
+});
+
 const updateSchema = z.object({
   name: z.string().min(1).optional(),
   email: z.string().email().optional()
